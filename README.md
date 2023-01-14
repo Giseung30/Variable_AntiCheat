@@ -54,3 +54,29 @@
     </tr>
   </table>
 </div>
+
+# ✔ 결과
++ 값을 온전히 변수에 저장하는 것이 아니므로, 직접적인 메모리 조작이 불가능하다.
++ 루팅된 기기에서도 게임치나 게임 가디언 등의 앱으로 변수 조작이 불가능하다.
++ 다만, 갱신 과정이 필요하기 때문에 성능 이슈가 발생하지 않도록 변수를 남발해서는 안된다.
+
+<div align="center">
+  <table border="0">
+    <tr>
+      <td align="center">
+        <img width="100%" height="100%" src="https://user-images.githubusercontent.com/60832219/212467870-3412f3fa-d2d3-4b15-a061-8c224c9b2369.png"/>
+      </td>
+      <td align="center">
+        <img width="100%" height="100%" src="https://user-images.githubusercontent.com/60832219/212467874-5f85fbd8-ac02-4e3e-96d9-e27332ec9ee4.png"/>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        안티 치트 사용전
+      </td>
+      <td align="center">
+        안티 치트 사용후
+      </td>
+    </tr>
+  </table>
+</div>
