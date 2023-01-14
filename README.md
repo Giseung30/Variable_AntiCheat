@@ -102,12 +102,21 @@ public class AntiCheatVariable : MonoBehaviour
         {
             varLock = value - varKey;
         }
-    } //Var
-    private static int varLock; //Var Lock
-    private static int varKey; //Var Key
+    } //참조 변수
+    private static int varLock; //Lock
+    private static int varKey; //Key
+    private static int changedVarKey
+    {
+        set
+        {
+            int temp = var; //기존 값 임시 저장
+            varKey = value; //Key 변경
+            var = temp; //기존 값 복구
+        }
+    } //변경할 Key
 
     [Header("Cache")]
-    private static readonly WaitForSeconds keyChangeInterval = new WaitForSeconds(2f); //Key 변경 간격
+    private static readonly WaitForSeconds keyChangeInterval = new WaitForSeconds(2f); //Key 갱신 간격
 
     private void Start()
     {
@@ -117,14 +126,11 @@ public class AntiCheatVariable : MonoBehaviour
     /* Key를 주기적으로 갱신하는 코루틴 함수 */
     private IEnumerator ChangeKey()
     {
-        int temp; //임시 변수
         while (true)
         {
-            yield return keyChangeInterval; //Key 변경 대기
+            yield return keyChangeInterval; //Key 갱신 대기
 
-            temp = var; //기존 값 저장
-            varKey = Random.Range(minKeyValue, maxKeyValue); //Key 갱신
-            var = temp; //기존 값 지정
+            changedVarKey = Random.Range(minKeyValue, maxKeyValue); //Key 갱신
         }
     }
 }
