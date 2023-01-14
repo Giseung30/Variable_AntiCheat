@@ -1,6 +1,6 @@
 # 변수 안티치트
 
-# 🖥 소개
+## 🖥 소개
 + 간단히 메모리 변조를 방지하기 위해 구현한 **변수 은닉 모듈**이다.
 
 ## 📖 개요
@@ -55,7 +55,7 @@
   </table>
 </div>
 
-# ✔ 결과
+## ✔ 결과
 + 값을 온전히 변수에 저장하는 것이 아니므로, 직접적인 메모리 조작이 불가능하다.
 + 루팅된 기기에서도 게임치나 게임 가디언 등의 앱으로 변수 조작이 불가능하다.
 + 다만, 갱신 과정이 필요하기 때문에 성능 이슈가 발생하지 않도록 변수를 남발해서는 안된다.
@@ -80,3 +80,52 @@
     </tr>
   </table>
 </div>
+
+## 📃 스크립트
+```C#
+using UnityEngine;
+using System.Collections;
+
+public class AntiCheatVariable : MonoBehaviour
+{
+    [Header("Definition")]
+    private static readonly int minKeyValue = -100000000; //최소 Key 값
+    private static readonly int maxKeyValue = 100000000; //최대 Key 값
+
+    public static int var
+    {
+        get
+        {
+            return varLock + varKey;
+        }
+        set
+        {
+            varLock = value - varKey;
+        }
+    } //Var
+    private static int varLock; //Var Lock
+    private static int varKey; //Var Key
+
+    [Header("Cache")]
+    private static readonly WaitForSeconds keyChangeInterval = new WaitForSeconds(2f); //Key 변경 간격
+
+    private void Start()
+    {
+        StartCoroutine(ChangeKey());
+    }
+
+    /* Key를 주기적으로 갱신하는 코루틴 함수 */
+    private IEnumerator ChangeKey()
+    {
+        int temp; //임시 변수
+        while (true)
+        {
+            yield return keyChangeInterval; //Key 변경 대기
+
+            temp = var; //기존 값 저장
+            varKey = Random.Range(minKeyValue, maxKeyValue); //Key 갱신
+            var = temp; //기존 값 지정
+        }
+    }
+}
+```
