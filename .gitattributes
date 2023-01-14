@@ -1,3 +1,4 @@
 *.hlsl linguist-vendored
 *.g linguist-vendored
 *.mm linguist-vendored
+*.cginc linguist-vendored
